@@ -17,7 +17,7 @@ public class ProgramTest {
     [Theory]
 	[InlineData("ETC", 0)]
 	[InlineData("BTC", -0.00000000001)]
-    public void Check_that_negative_values_throws_an_exception(string currencyName, double price) {
+    public void Check_that_less_than_or_equal_to_zero_throws_an_exception(string currencyName, double price) {
 		// Arrange
         Converter crypto = new();
 
