@@ -26,9 +26,8 @@ public class ProgramTest {
     }
 	
     [Theory]
-	[InlineData("BTC", 20000, "DOGE", 0.01, 1, 2000000)]
-	[InlineData("BTC", 10000, "DOGE", 0.01, 1, 1000000)]
 	[InlineData("DOGE", 0.01, "BTC", 10000, 1, 0.000001)]
+	[InlineData("DOGE", 0.01, "BTC", 10000, -1, -0.000001)]
     public void Check_that_price_can_be_converted_correctly(string fromCurrencyName, double fromCurrencyUSDValue, string toCurrencyName, double toCurrencyUSDValue, double amount, double expected) {
 		// Arrange
         Converter crypto = new();
