@@ -1,6 +1,7 @@
 ﻿public class Converter {
-    //Main method
     public static void Main(string[] args) {}
+
+	Dictionary<string, double> currencyPriceList = new() { };
 
     /// <summary>
     /// Angiver prisen for en enhed af en kryptovaluta. Prisen angives i dollars.
@@ -10,8 +11,12 @@
     /// <param name="currencyName">Navnet på den kryptovaluta der angives</param>
     /// <param name="price">Prisen på en enhed af valutaen målt i dollars. Prisen kan ikke være negativ</param>
     public void SetPricePerUnit(String currencyName, double price) {
-
+		currencyPriceList[currencyName] = price;
     }
+
+	public double GetPricePerUnit(String currencyName) {
+		return currencyPriceList[currencyName];
+	}
 
     /// <summary>
     /// Konverterer fra en kryptovaluta til en anden. 
@@ -23,6 +28,9 @@
     /// <param name="amount">Beløbet angivet i valutaen angivet i fromCurrencyName</param>
     /// <returns>Værdien af beløbet i toCurrencyName</returns>
     public double Convert(String fromCurrencyName, String toCurrencyName, double amount) {
-        return 0;
+		double fromCurrencyUSDValue = GetPricePerUnit(fromCurrencyName) * amount;
+		double toCurrencyUSDValue = fromCurrencyUSDValue / GetPricePerUnit(toCurrencyName);
+
+        return toCurrencyUSDValue;
     }
 }
