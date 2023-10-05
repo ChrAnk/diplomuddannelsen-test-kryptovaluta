@@ -11,6 +11,10 @@
     /// <param name="currencyName">Navnet på den kryptovaluta der angives</param>
     /// <param name="price">Prisen på en enhed af valutaen målt i dollars. Prisen kan ikke være negativ</param>
     public void SetPricePerUnit(String currencyName, double price) {
+		if(price <= 0) {
+			throw new ArgumentException("Error: Please enter a positive price.");
+		}
+
 		currencyPriceList[currencyName] = price;
     }
 
@@ -28,9 +32,10 @@
     /// <param name="amount">Beløbet angivet i valutaen angivet i fromCurrencyName</param>
     /// <returns>Værdien af beløbet i toCurrencyName</returns>
     public double Convert(String fromCurrencyName, String toCurrencyName, double amount) {
-		double fromCurrencyUSDValue = GetPricePerUnit(fromCurrencyName) * amount;
-		double toCurrencyUSDValue = fromCurrencyUSDValue / GetPricePerUnit(toCurrencyName);
+		double fromCurrencyUSDValuePerUnit = GetPricePerUnit(fromCurrencyName);
+		double toCurrencyUSDValuePerUnit = GetPricePerUnit(toCurrencyName);
+		double toCurrencyUSDTotalValue = fromCurrencyUSDValuePerUnit * amount / toCurrencyUSDValuePerUnit;
 
-        return toCurrencyUSDValue;
+        return toCurrencyUSDTotalValue;
     }
 }

@@ -2,8 +2,7 @@ using Xunit;
 
 public class ProgramTest {
     [Theory]
-	[InlineData("BTC", 12345)]
-	[InlineData("ETH", 1234)]
+	[InlineData("DOGE", 0.00000000001)]
     public void Check_that_setting_and_getting_price_works(string currencyName, double price) {
 		// Arrange
         Converter crypto = new();
@@ -13,6 +12,17 @@ public class ProgramTest {
 
 		// Assert
         Assert.Equal(price, crypto.GetPricePerUnit(currencyName));
+    }
+
+    [Theory]
+	[InlineData("ETC", 0)]
+	[InlineData("BTC", -0.00000000001)]
+    public void Check_that_negative_values_throws_an_exception(string currencyName, double price) {
+		// Arrange
+        Converter crypto = new();
+
+		// Assert
+        Assert.Throws<ArgumentException>(() => crypto.SetPricePerUnit(currencyName, price));
     }
 	
     [Theory]
